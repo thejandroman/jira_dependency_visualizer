@@ -1,0 +1,34 @@
+# coding: utf-8
+require 'rake'
+
+lib = File.expand_path('../lib', __FILE__)
+$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
+require 'jira_dependency_visualizer/version'
+
+Gem::Specification.new do |s|
+  s.authors       = ['Alejandro Figueroa']
+  s.bindir        = 'bin'
+  s.description   = 'Creates a graphviz file from a JIRA ticket\'s dependencies'
+  s.email         = ['alejandro@ideasftw.com']
+  s.executables << 'jira_dependency_visualizer'
+  s.files         = FileList['lib/**/*.rb', 'bin/*', '[A-Z]*', 'spec/**/*'].to_a
+  s.homepage      = 'https://github.com/thejandroman/jira_dependency_visualizer'
+  s.license       = 'MIT'
+  s.name          = 'jira_dependency_visualizer'
+  s.summary       = 'Creates a graphviz file from a JIRA ticket\'s dependencies'
+  s.version       = JiraDependencyVisualizer::VERSION
+
+  s.add_dependency 'jira-ruby', '~> 0.1'
+  s.add_dependency 'ruby-graphviz', '~> 1.2'
+  s.add_dependency 'trollop', '~> 2.1'
+
+  s.add_development_dependency 'bundler', '~> 1.11'
+  s.add_development_dependency 'coveralls', '~> 0.8'
+  s.add_development_dependency 'factory_girl', '~> 4.5'
+  s.add_development_dependency 'guard-rspec', '~> 4.6'
+  s.add_development_dependency 'pry', '~> 0.10'
+  s.add_development_dependency 'rake', '~> 10.5'
+  s.add_development_dependency 'rspec', '~> 3.4'
+  s.add_development_dependency 'rubocop', '~> 0.37'
+  s.add_development_dependency 'yard', '~> 0.8'
+end

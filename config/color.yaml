@@ -1,0 +1,26 @@
+---
+status:
+  Incoming:
+    fillcolor: purple
+    style: filled
+  To Do:
+    fillcolor: purple
+    style: filled
+    fontcolor: white
+  In Progress:
+    style: filled
+  Blocked:
+    fillcolor: red
+    style: filled
+    # fontcolor: white
+  Code Review:
+    fillcolor: yellow
+    style: filled
+  Closed:
+    fillcolor: green
+    style: filled
+    fontcolor: white
+  Done:
+    fillcolor: green
+    style: filled
+    fontcolor: white

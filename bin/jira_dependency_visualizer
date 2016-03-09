@@ -1,0 +1,112 @@
+#!/usr/bin/env ruby
+require 'jira_dependency_visualizer'
+require 'yaml'
+require 'trollop'
+
+opts = Trollop.options do
+  version JiraDependencyVisualizer::VERSION
+  banner <<-EOS
+Takes a Jira ticket and builds a dependency graph based on that
+ticket's dependent tickets.
+
+Usage:
+      jira_dependency_visualizer [options]
+where [options] are:
+EOS
+
+  opt :color_config,
+      'YAML file specifying the colors to use in the graph',
+      type: :string
+
+  opt :context_path,
+      'The Jira application\'s context path',
+      type: :string,
+      short: 'c',
+      default: ''
+
+  opt :exclude_link,
+      'Jira issue link to exclude; can be specified multiple times',
+      type: :string,
+      short: 'e',
+      multi: true
+
+  opt :graph_format,
+      'The format to write the dependency graph in',
+      type: :string,
+      short: 'f',
+      default: 'svg'
+
+  opt :graph_filename,
+      'The filename to write the dependency graph to',
+      type: :string,
+      short: 'g',
+      default: './issue_graph.svg'
+
+  opt :issue_id,
+      'The issue ID visualize',
+      type: :string,
+      short: 'i',
+      required: true
+
+  opt :password,
+      '[REQUIRED] The Jira user\'s password',
+      type: :string,
+      short: 'p',
+      required: true
+
+  opt :proxy_address,
+      'The proxy address',
+      type: :string
+
+  opt :proxy_port,
+      'The proxy port',
+      type: :int
+
+  opt :read_timeout,
+      'Number of seconds to wait for data to be read',
+      type: :int,
+      short: 't'
+
+  opt :rest_base_path,
+      'The Jira rest API base path',
+      type: :string,
+      short: 'r',
+      default: '/rest/api/latest'
+
+  opt :site,
+      '[REQUIRED] URL for Jira',
+      type: :string,
+      short: 's',
+      required: true
+
+  opt :use_ssl,
+      'Whether to use SSL',
+      type: :flag,
+      default: true
+
+  opt :username,
+      '[REQUIRED] The Jira user\'s username',
+      type: :string,
+      short: 'u',
+      required: true
+end
+
+puts 'Building options...'
+opts[:auth_type] = :basic
+
+colors = opts[:color_config] ? YAML.load_file(opts.delete(:color_config)) : {}
+
+exclude_links  = opts.delete(:exclude_link)
+issue_id       = opts.delete(:issue_id)
+graph_filename = opts.delete(:graph_filename)
+graph_format   = opts.delete(:graph_format)
+
+puts 'Creating objects...'
+jira = JiraDependencyVisualizer::Jira.new(opts)
+graph = JiraDependencyVisualizer::Graph.new(issue_id, jira, exclude_links, colors)
+
+puts 'Finding dependencies...'
+graph.walk
+
+puts 'Creating dependency graph...'
+graph.write_graph(graph_filename, graph_format)
