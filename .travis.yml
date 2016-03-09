@@ -7,10 +7,11 @@ cache: bundler
 # install: 'gem install rake -v 10.5 && bundle install --jobs=3 --retry=3 --path=${BUNDLE_PATH:-vendor/bundle}'
 # script: bundle exec rake
 
-include:
-  - rvm: 2.1.8
-  - rvm: 2.2.4
-  - rvm: ruby-head
-    before_install:
-      - rvm get stable --auto-dotfiles
-      - rvm install 2.3.0
+matrix:
+  include:
+    - rvm: 2.1.8
+    - rvm: 2.2.4
+    - rvm: ruby-head
+      before_install:
+        - rvm get stable --auto-dotfiles
+        - rvm install 2.3.0
