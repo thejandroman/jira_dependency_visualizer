@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/thejandroman/jira_dependency_visualizer.svg?branch=master)](https://travis-ci.org/thejandroman/jira_dependency_visualizer)
+
 # JiraDependencyVisualizer
 
 This gem was created as a way to visualize dependencies between
