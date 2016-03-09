@@ -14,10 +14,12 @@ describe JiraDependencyVisualizer::Graph do
     response
   end
 
+  let(:node) { build(:node) }
+
   let(:graph) do
     response = double('graph')
     allow(response).to receive(:add_edges).and_return(true)
-    allow(response).to receive(:search_node)
+    allow(response).to receive(:search_node).and_return(node)
     allow(response).to receive(:output).and_return(nil)
     response
   end
