@@ -4,17 +4,20 @@ module JiraDependencyVisualizer
   # Gets Jira issue dependencies and creates a Graphviz graph based on
   # those dependencies
   class Graph
-    # @param [String] start_issue_key
-    # @param [JiraDependencyVisualizer::Jira] jira
-    # @param [Array] excludes
-    # @param [Hash] colors
-    def initialize(start_issue_key, jira, excludes = [], colors = {})
+    # @param [String] the initial issue to build the dependency graph
+    #   from
+    # @param [JiraDependencyVisualizer::Jira]
+    # @param [Array] list of issue link types to exclude from the
+    #   graph
+    # @param [Hash] colors for graph; see `./config/colors.yaml`
+    # @param [Graphviz]
+    def initialize(start_issue_key, jira, excludes = [], colors = {}, graph = nil)
       @start_issue_key = start_issue_key
       @jira = jira
       @excludes = excludes
       @colors = colors
+      @graph = graph || GraphViz.new(start_issue_key.to_sym, type: :digraph)
       @seen = []
-      @graph = GraphViz.new(start_issue_key.to_sym, type: :digraph)
     end
 
     # Retrieve a list of all tickets dependent to `@start_issue_key`

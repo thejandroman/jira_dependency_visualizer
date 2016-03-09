@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe JiraDependencyVisualizer::Graph do
-  subject { JiraDependencyVisualizer::Graph.new('issue id', jira, [], colors) }
+  subject { JiraDependencyVisualizer::Graph.new('issue id', jira, [], colors, graph) }
 
   let(:epic_issue) { build(:epic_issue) }
   let(:issues) { build_pair(:subtask_issue) }
@@ -11,6 +11,14 @@ describe JiraDependencyVisualizer::Graph do
     allow(response).to receive(:get_issue).and_return(epic_issue)
     allow(response).to receive(:query).and_return(issues)
     allow(response).to receive(:base_url).and_return('http://localhost')
+    response
+  end
+
+  let(:graph) do
+    response = double('graph')
+    allow(response).to receive(:add_edges).and_return(true)
+    allow(response).to receive(:search_node)
+    allow(response).to receive(:output).and_return(nil)
     response
   end
 
