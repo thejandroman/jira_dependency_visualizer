@@ -9,4 +9,4 @@
 /tmp/
 issue_graph.svg
 .DS_Store
-
+jira_dependency_visualizer-*.gem
