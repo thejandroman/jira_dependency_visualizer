@@ -6,17 +6,18 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'jira_dependency_visualizer/version'
 
 Gem::Specification.new do |s|
-  s.authors       = ['Alejandro Figueroa']
-  s.bindir        = 'bin'
-  s.description   = 'Creates a graphviz file from a JIRA ticket\'s dependencies'
-  s.email         = ['alejandro@ideasftw.com']
+  s.authors               = ['Alejandro Figueroa']
+  s.bindir                = 'bin'
+  s.description           = 'Creates a graphviz file from a JIRA ticket\'s dependencies'
+  s.email                 = ['alejandro@ideasftw.com']
   s.executables << 'jira_dependency_visualizer'
-  s.files         = FileList['lib/**/*.rb', 'bin/*', '[A-Z]*', 'spec/**/*'].to_a
-  s.homepage      = 'https://github.com/thejandroman/jira_dependency_visualizer'
-  s.license       = 'MIT'
-  s.name          = 'jira_dependency_visualizer'
-  s.summary       = 'Creates a graphviz file from a JIRA ticket\'s dependencies'
-  s.version       = JiraDependencyVisualizer::VERSION
+  s.files                 = FileList['lib/**/*.rb', 'bin/*', '[A-Z]*', 'spec/**/*'].to_a
+  s.homepage              = 'https://github.com/thejandroman/jira_dependency_visualizer'
+  s.license               = 'MIT'
+  s.name                  = 'jira_dependency_visualizer'
+  s.summary               = 'Creates a graphviz file from a JIRA ticket\'s dependencies'
+  s.required_ruby_version = ['>= 2.1.0', '<= 2.3.0']
+  s.version               = JiraDependencyVisualizer::VERSION
 
   s.add_dependency 'jira-ruby', '~> 0.1'
   s.add_dependency 'ruby-graphviz', '~> 1.2'
