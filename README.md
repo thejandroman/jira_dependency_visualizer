@@ -9,6 +9,10 @@ dependent tickets were interconnected along with their current status.
 The status colors in the graph are customizable via a yaml file. See
 `./config/color.yaml` for an example.
 
+## Dependencies
+
+This gem requires the graphviz package to be installed. On
+Mac/homebrew: `brew install graphviz`.
 
 ## Installation
 
