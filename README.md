@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/thejandroman/jira_dependency_visualizer.svg?branch=master)](https://travis-ci.org/thejandroman/jira_dependency_visualizer)
+[![Coverage Status](https://coveralls.io/repos/github/thejandroman/jira_dependency_visualizer/badge.svg?branch=master)](https://coveralls.io/github/thejandroman/jira_dependency_visualizer?branch=master)
 [![Inline docs](http://inch-ci.org/github/thejandroman/jira_dependency_visualizer.svg?branch=master)](http://inch-ci.org/github/thejandroman/jira_dependency_visualizer)
 
 # JiraDependencyVisualizer
