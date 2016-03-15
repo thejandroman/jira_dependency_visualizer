@@ -3,6 +3,7 @@ status:
   Incoming:
     fillcolor: purple
     style: filled
+    fontcolor: white
   To Do:
     fillcolor: purple
     style: filled
