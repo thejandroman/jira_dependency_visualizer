@@ -43,7 +43,7 @@ EOS
       default: './issue_graph.svg'
 
   opt :issue_id,
-      'The issue ID visualize',
+      '[REQUIRED] The issue ID to visualize',
       type: :string,
       short: 'i',
       required: true
