@@ -18,7 +18,8 @@ FactoryGirl.define do
 
   factory :generic_issue, class: OpenStruct do
     attrs do
-      { 'key' => 'test5',
+      {
+        'key' => 'test5',
         'fields' => {
           'status' => {
             'name' => 'Blocked'

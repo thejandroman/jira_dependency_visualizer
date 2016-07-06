@@ -25,14 +25,17 @@ describe JiraDependencyVisualizer::Graph do
   end
 
   let(:colors) do
-    { 'status' =>
-      { 'Incoming' =>
-        { 'fillcolor' => 'purple',
-          'style'     => 'filled' },
-        'To Do' =>
-        { 'fillcolor' => 'purple',
+    {
+      'status' => {
+        'Incoming' => {
+          'fillcolor' => 'purple',
+          'style'     => 'filled'
+        },
+        'To Do' => {
+          'fillcolor' => 'purple',
           'style'     => 'filled',
-          'fontcolor' => 'white' }
+          'fontcolor' => 'white'
+        }
       }
     }
   end
