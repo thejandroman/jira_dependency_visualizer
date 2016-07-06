@@ -1,4 +1,4 @@
-require 'jira'
+require 'jira-ruby'
 
 module JiraDependencyVisualizer
   # Creates a Jira client and exposes functions to get Jira issues
