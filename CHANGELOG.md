@@ -6,6 +6,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - Changelog
 
+### Changed
+- Switch from trollop to optparse
+
 ## [0.1.0] - 2016-03-09
 ### Added
 - Initial release
