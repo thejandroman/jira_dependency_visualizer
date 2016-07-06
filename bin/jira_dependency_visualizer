@@ -1,11 +1,11 @@
 #!/usr/bin/env ruby
 require 'jira_dependency_visualizer'
 require 'yaml'
-require 'trollop'
+require 'optparse'
 
-opts = Trollop.options do
-  version JiraDependencyVisualizer::VERSION
-  banner <<-EOS
+opts = {}
+parser = OptionParser.new do |opt|
+  opt.banner = <<-EOS
 Takes a Jira ticket and builds a dependency graph based on that
 ticket's dependent tickets.
 
@@ -14,82 +14,106 @@ Usage:
 where [options] are:
 EOS
 
-  opt :color_config,
-      'YAML file specifying the colors to use in the graph',
-      type: :string
+  opt.on '-v', '--version', 'Print version and exit' do
+    puts JiraDependencyVisualizer::VERSION
+    exit
+  end
 
-  opt :context_path,
-      'The Jira application\'s context path',
-      type: :string,
-      short: 'c',
-      default: ''
+  opt.on '-h', '--help', 'Show this message' do
+    puts opt
+    exit
+  end
 
-  opt :exclude_link,
-      'Jira issue link to exclude; can be specified multiple times',
-      type: :string,
-      short: 'e',
-      multi: true
+  opt.on '-o o', '--color-config FILE', String,
+         'YAML file specifying the colors to use in the graph' do |o|
+    opts[:color_config] = o
+  end
 
-  opt :graph_format,
-      'The format to write the dependency graph in',
-      type: :string,
-      short: 'f',
-      default: 'svg'
+  opts[:context_path] = ''
+  opt.on '-c c', '--context-path CONTEXT', String,
+         'The Jira application\'s context path (default: \'\')' do |c|
+    opts[:context_path] = c
+  end
 
-  opt :graph_filename,
-      'The filename to write the dependency graph to',
-      type: :string,
-      short: 'g',
-      default: './issue_graph.svg'
+  opts[:exclude_link] = []
+  opt.on '-e e', '--exclude-link LINK1,LINK2', Array,
+         'Jira issue link(s) to exclude; comma separated' do |e|
+    opts[:exclude_link] = e
+  end
 
-  opt :issue_id,
-      '[REQUIRED] The issue ID to visualize',
-      type: :string,
-      short: 'i',
-      required: true
+  opts[:graph_format] = 'svg'
+  opt.on '-f f', '--graph-format FORMAT', String,
+         'The format to write the dependency graph in (default: svg)' do |f|
+    opts[:graph_format] = f
+  end
 
-  opt :password,
-      '[REQUIRED] The Jira user\'s password',
-      type: :string,
-      short: 'p',
-      required: true
+  opts[:graph_filename] = './issue_graph.svg'
+  opt.on '-g g', '--graph-filename FILENAME', String,
+         'The filename to write the dependency graph to. Appends the ' \
+         ':graph_format option to the end' do |g|
+    opts[:graph_filename] = g
+  end
 
-  opt :proxy_address,
-      'The proxy address',
-      type: :string
+  opt.on '-i i', '--issue-id ISSUE', String,
+         '[REQUIRED] The issue ID to visualize' do |i|
+    opts[:issue_id] = i
+  end
 
-  opt :proxy_port,
-      'The proxy port',
-      type: :int
+  opt.on '-p p', '--password PASSWORD', String,
+         '[REQUIRED] The Jira user\'s password' do |p|
+    opts[:password] = p
+  end
 
-  opt :read_timeout,
-      'Number of seconds to wait for data to be read',
-      type: :int,
-      short: 't'
+  opt.on '-x x', '--proxy-address ADDRESS', String,
+         'The proxy address' do |x|
+    opts[:proxy_address] = x
+  end
 
-  opt :rest_base_path,
-      'The Jira rest API base path',
-      type: :string,
-      short: 'r',
-      default: '/rest/api/latest'
+  opt.on '-t t', '--read-timeout TIMEOUT', Integer,
+         'Number of seconds to wait for data to be read' do |t|
+    opts[:read_timeout] = t
+  end
 
-  opt :site,
-      '[REQUIRED] URL for Jira',
-      type: :string,
-      short: 's',
-      required: true
+  opt.on '-s s', '--site SITE', String,
+         '[REQUIRED] URL for Jira' do |s|
+    opts[:site] = s
+  end
 
-  opt :use_ssl,
-      'Whether to use SSL',
-      type: :flag,
-      default: true
+  opt.on '-u u', '--username USER', String,
+         '[REQUIRED] The Jira user\'s username' do |u|
+    opts[:username] = u
+  end
 
-  opt :username,
-      '[REQUIRED] The Jira user\'s username',
-      type: :string,
-      short: 'u',
-      required: true
+  opt.on '-y y', '--proxy-port PORT', Integer,
+         'The proxy port' do |y|
+    opts[:proxy_port] = y
+  end
+
+  opts[:rest_base_path] = '/rest/api/latest'
+  opt.on '-r r', '--rest-base-path PATH', String,
+         'The Jira rest API base path (default: /rest/api/latest)' do |r|
+    opts[:rest_base_path] = r
+  end
+
+  opts[:use_ssl] = true
+  opt.on('-l', '--[no-]use-ssl', TrueClass,
+         'Whether to use SSL (default: true)') do |l|
+    opts[:use_ssl] = l
+  end
 end
+
+begin
+  parser.parse!
+rescue OptionParser::InvalidOption => e
+  abort e.to_s.sub(/^(.)/, &:capitalize)
+rescue OptionParser::MissingArgument => e
+  abort e.to_s.sub(/^(.)/, &:capitalize)
+end
+
+abort '--issue-id is required.' if opts[:issue_id].nil?
+abort '--site is required.' if opts[:site].nil?
+abort '--password is required.' if opts[:password].nil?
+abort '--username is required.' if opts[:username].nil?
 
 puts 'Building options...'
 opts[:auth_type] = :basic

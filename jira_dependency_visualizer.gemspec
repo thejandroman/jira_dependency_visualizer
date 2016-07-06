@@ -13,13 +13,12 @@ Gem::Specification.new do |s|
   s.homepage              = 'https://github.com/thejandroman/jira_dependency_visualizer'
   s.license               = 'MIT'
   s.name                  = 'jira_dependency_visualizer'
-  s.summary               = 'Creates a graphviz file from a JIRA ticket\'s dependencies'
   s.required_ruby_version = ['>= 2.1.0', '<= 2.3.0']
+  s.summary               = 'Creates a graphviz file from a JIRA ticket\'s dependencies'
   s.version               = JiraDependencyVisualizer::VERSION
 
   s.add_dependency 'jira-ruby', '~> 1.0'
   s.add_dependency 'ruby-graphviz', '~> 1.2'
-  s.add_dependency 'trollop', '~> 2.1'
 
   s.add_development_dependency 'bundler', '~> 1.11'
   s.add_development_dependency 'coveralls', '~> 0.8'
