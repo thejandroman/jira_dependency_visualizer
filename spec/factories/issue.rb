@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 FactoryGirl.define do
   factory :subtask_issue, class: OpenStruct do
     attrs do

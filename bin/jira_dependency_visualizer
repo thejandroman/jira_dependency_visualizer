@@ -1,4 +1,6 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
+
 require 'jira_dependency_visualizer'
 require 'yaml'
 require 'optparse'

@@ -5,6 +5,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Added
 - Changelog
+- Add frozen_string_literal comment
 
 ### Changed
 - Switch from trollop to optparse
