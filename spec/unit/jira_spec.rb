@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe JiraDependencyVisualizer::Jira do
+describe JiraDependencyVisualizer::Jira do # rubocop:disable Metrics/BlockLength
   context '#new' do
     it { is_expected.to be_instance_of JiraDependencyVisualizer::Jira }
   end
@@ -38,7 +38,7 @@ describe JiraDependencyVisualizer::Jira do
     end
   end
 
-  context '#base_url' do
+  context '#base_url' do # rubocop:disable Metrics/BlockLength
     subject do
       JiraDependencyVisualizer::Jira.new(
         site: site,

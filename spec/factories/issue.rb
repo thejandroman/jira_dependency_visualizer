@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryGirl.define do # rubocop:disable Metrics/BlockLength
   factory :subtask_issue, class: OpenStruct do
     attrs do
       {
