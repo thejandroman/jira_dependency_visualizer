@@ -8,6 +8,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Changed
 - Switch from trollop to optparse
+- Addressed security vulnerabilities
+  - rubocop [CVE-2017-8418](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2017-8418)
 
 ## [0.1.0] - 2016-03-09
 ### Added
