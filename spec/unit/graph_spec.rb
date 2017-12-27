@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe JiraDependencyVisualizer::Graph do
+describe JiraDependencyVisualizer::Graph do # rubocop:disable Metrics/BlockLength
   subject { JiraDependencyVisualizer::Graph.new('issue id', jira, [], colors, graph) }
 
   let(:epic_issue) { build(:epic_issue) }
@@ -55,7 +55,7 @@ describe JiraDependencyVisualizer::Graph do
       response
     end
 
-    it { expect(subject.walk).to eq(%w(test3 test3)) }
+    it { expect(subject.walk).to eq(%w[test3 test3]) }
   end
 
   context '#walk issuelinks' do
@@ -69,7 +69,7 @@ describe JiraDependencyVisualizer::Graph do
       response
     end
 
-    it { expect(subject.walk).to eq(%w(test4 test4)) }
+    it { expect(subject.walk).to eq(%w[test4 test4]) }
   end
 
   context '#write_graph' do

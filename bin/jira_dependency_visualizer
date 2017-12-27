@@ -4,15 +4,15 @@ require 'yaml'
 require 'optparse'
 
 opts = {}
-parser = OptionParser.new do |opt|
-  opt.banner = <<-EOS
-Takes a Jira ticket and builds a dependency graph based on that
-ticket's dependent tickets.
+parser = OptionParser.new do |opt| # rubocop:disable Metrics/BlockLength
+  opt.banner = <<~BANNER
+    Takes a Jira ticket and builds a dependency graph based on that
+    ticket's dependent tickets.
 
-Usage:
-      jira_dependency_visualizer [options]
-where [options] are:
-EOS
+    Usage:
+          jira_dependency_visualizer [options]
+    where [options] are:
+BANNER
 
   opt.on '-v', '--version', 'Print version and exit' do
     puts JiraDependencyVisualizer::VERSION
